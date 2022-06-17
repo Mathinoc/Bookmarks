@@ -1,0 +1,12 @@
+.app-header {
+  background: linear-gradient(20deg,var(--header-color-left),var(--header-color-right));
+  height: var(--header-height);
+  
+}
+.app-header__title{
+  margin: 0;
+  color: aliceblue;
+  font-size: 30px;
+  text-align: left;
+  padding-left: 15px;
+}
