@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Header from '../components/Header';
 import UrlSearch from '../components/UrlSearch';
 import List from '../components/List';
@@ -19,20 +19,32 @@ const mockData = {
 
   const [bookmarks, setBookmarks] = useState<bookmark[] | []>(() => {
     const bookmarksJson = localStorage.getItem("bookmarkList");
-    console.log('bookmarksJson', bookmarksJson)
     const bookmarkSaved = bookmarksJson && JSON.parse(bookmarksJson);
-    console.log('bookmarkSaved', bookmarkSaved)
     return [mockData] || [mockData];
   })
 
   useEffect(() => {
     localStorage.setItem("bookmarkList", JSON.stringify(bookmarks))
-  }, [bookmarks])
+  }, [bookmarks]);
+
+  async function createBookmark (url: string) {
+    
+    // const newBookmark = await getNoembedInfo(url);
+    // if (newBookmark.error) {
+
+    // } else {
+    //   console.log(newBookmark)
+    //   setBookmarks(prev => [newBookmark, ...prev])
+    // }
+    console.log(url)
+  }
+
+  const urlInput = useRef<HTMLInputElement>(null);
 
   return (
     <div>
       <Header />
-      <UrlSearch />
+      <UrlSearch urlInput={urlInput} createBookmark={() => createBookmark(urlInput.current!.value)}/>
       <List bookmarks={bookmarks}/>
 
     </div>
