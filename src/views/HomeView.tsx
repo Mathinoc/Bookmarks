@@ -20,7 +20,7 @@ const mockData = {
   const [bookmarks, setBookmarks] = useState<bookmark[] | []>(() => {
     const bookmarksJson = localStorage.getItem("bookmarkList");
     const bookmarkSaved = bookmarksJson && JSON.parse(bookmarksJson);
-    return [mockData] || [mockData];
+    return bookmarkSaved || [mockData];
   })
 
   useEffect(() => {
