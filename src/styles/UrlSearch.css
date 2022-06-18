@@ -14,6 +14,7 @@
   border-radius: 5px;
 
 }
+
 .url-search__save-button{
   border: none;
   background-color: var(--header-color-right);
@@ -25,7 +26,6 @@
   cursor: pointer;
   background-color: var(--header-light-color-right);
 }
-
 
 .url-search__input-elements{
   flex-grow: 1;
@@ -40,9 +40,6 @@
   padding: 0;
   border:none;
 }
-
-
-
 .url-search__input-elements input:focus-visible{
   outline: none;
 }
