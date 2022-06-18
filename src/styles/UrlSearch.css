@@ -1,5 +1,5 @@
 .url-search__container{
-  padding: 20px;
+  padding: 20px 0;
   --height-entries:35px;
 }
 .url-search__container form {
@@ -11,7 +11,7 @@
   height: var(--height-entries);
   box-sizing: border-box;
   padding: 0 15px;
-  border-radius: 5px;
+  border-radius: var(--global-radius);
 
 }
 
@@ -24,7 +24,7 @@
 }
 .url-search__save-button:hover{
   cursor: pointer;
-  background-color: var(--header-light-color-right);
+  background-color: var(--header-heavy-color-right);
 }
 
 .url-search__input-elements{

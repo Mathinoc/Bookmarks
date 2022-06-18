@@ -1,14 +1,25 @@
 import React from 'react';
+import '../styles/List.css';
 import { bookmark } from '../interfaces/BookmarkInterface';
 import Bookmark from './Bookmark';
 
-export default function List({bookmarks}: {bookmarks: bookmark[]}) {
+export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[], setBookmarks: React.Dispatch<React.SetStateAction<bookmark[] | []>> }) {
   console.log(bookmarks)
+  function removeBookmark(bookmarkDate: number) {
+    setBookmarks(prev => (
+      prev.filter(elem => elem.creation_date !== bookmarkDate)
+    ))
+  }
+
   return (
     <div className="bookmark-list__container">
-      {bookmarks.map(bookmark => (
-        <Bookmark bookmark={bookmark} />
-      ))}
+      <ul>
+        {bookmarks.map(bookmark => (
+          <li key={bookmark.creation_date}>
+            <Bookmark bookmark={bookmark} removeBookmark={() => removeBookmark(bookmark.creation_date)}/>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

@@ -9,6 +9,6 @@ export interface bookmark {
   upload_date?: string,
 
   height?: string,
-  width?: string
-
+  width?: string,
+  creation_date: number,
 }

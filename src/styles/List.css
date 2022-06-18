@@ -1,0 +1,16 @@
+.bookmark-list__container{
+
+}
+.bookmark-list__container ul {
+  padding: 0;
+  list-style-type: none;
+  margin: 0;
+}
+.bookmark-list__container li {
+  margin-bottom: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: var(--global-radius);
+}
+.bookmark-list__container li:hover {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
