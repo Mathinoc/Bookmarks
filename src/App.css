@@ -1,6 +1,7 @@
 :root{
   --header-color-left: rgb(192 84 116 / 80%);
   --header-color-right: rgb(248 149 109 / 80%);
+  --header-light-color-right: rgb(248 149 109 / 95%);
   --header-height: 50px;
 
 }
