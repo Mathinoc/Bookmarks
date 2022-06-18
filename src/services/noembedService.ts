@@ -1,4 +1,4 @@
-const baseUrl = "http://noembed.com/embed?url=";
+const baseUrl = "https://noembed.com/embed?url=";
 
 export default function getNoembedInfo (fetchUrl: string) {
   return fetch(`${baseUrl}${fetchUrl}`, {
@@ -7,7 +7,7 @@ export default function getNoembedInfo (fetchUrl: string) {
     //body: JSON.stringify({'urlRecipe':urlRecipe})
   })
   .then(result => {
-    return result.json()
+    return result.json();
   })
   .catch(e => console.log('error in service file', e))
 }

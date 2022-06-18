@@ -29,13 +29,13 @@ const mockData = {
 
   async function createBookmark (url: string) {
     
-    // const newBookmark = await getNoembedInfo(url);
-    // if (newBookmark.error) {
-
-    // } else {
-    //   console.log(newBookmark)
-    //   setBookmarks(prev => [newBookmark, ...prev])
-    // }
+    const newBookmark = await getNoembedInfo(url);
+    if (newBookmark.error) {
+      console.log(newBookmark.error)
+    } else {
+      console.log(newBookmark)
+      setBookmarks(prev => [newBookmark, ...prev])
+    }
     console.log(url)
   }
 
