@@ -1,18 +1,19 @@
 import React from 'react';
-import grab from '../assets/handleIcon.svg';
 
-export default function DragHandle() {
-  function onMouseDown (e: any) {
-    e.target.parentNode.parentNode.parentNode.parentNode.setAttribute('draggable', 'true');
-    console.log('draggable')
-    console.log(e.target)
+export default function DragHandle({id}:{id: number}) {
+
+  function onMouseDown(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    document.querySelector(`li[id="${id}"]`)!.setAttribute("draggable", "true");
   }
+
   return (
     <div
       className='drag-handle'
       onMouseDown={onMouseDown}
     >
-      <img src={grab} alt="grab" />
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" >
+        <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+      </svg>
     </div>
   )
 }

@@ -51,7 +51,7 @@ export default function Bookmark({ bookmark, removeBookmark }: { bookmark: bookm
       </div>
       <DeleteButton onClick={removeBookmark} />
       <div className="article__drag">
-        <DragHandle />
+        <DragHandle id={bookmark.creation_date} />
       </div>
     </article>
   )

@@ -7,16 +7,6 @@ import getNoembedInfo from '../services/noembedService';
 import { bookmark } from '../interfaces/BookmarkInterface';
 import { formatDuration, formatDate } from '../utils/formatAdapters';
 
-// const mockData = {
-//   "duration": 1070,
-//   "thumbnail_url": "https://i.vimeocdn.com/video/1169280957-6513b97be812eac51f6ba090b2f34ab5a63bfc220076c0118950fcf4c227fdce-d_295x166",
-//   "title": "Sylvain Lhommée @ Nation Entreprenante - Episode #5",
-//   "upload_date": "2021-06-21 02:42:24",
-//   "author_name": "BARTERLINK",
-//   "type": "video",
-//   "url": "https://vimeo.com/565486457",
-//   "creation_date": 1655569767848
-// };
 
 export default function HomeView() {
 

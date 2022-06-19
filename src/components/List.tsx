@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import '../styles/List.css';
 import { bookmark } from '../interfaces/BookmarkInterface';
 import Bookmark from './Bookmark';
+import { insertAfter, dragSwitchElement } from '../utils/domOperation';
 
 export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[], setBookmarks: React.Dispatch<React.SetStateAction<bookmark[] | []>> }) {
+  const indexRef = useRef<number>();
+  const indexStart = useRef<number>();
 
   function removeBookmark(bookmarkDate: number) {
     setBookmarks(prev => (
@@ -11,50 +14,51 @@ export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[
     ))
   }
 
-  function onDragOver(e: any) {
+  function onDragOver(e: React.DragEvent<HTMLUListElement>) {
     e.preventDefault();
     const container = document.querySelector(".bookmark-list__ul")
-    //console.log(container, e.clientY)
-    const afterElement = getDragAfterElement(container, e.clientY);
-    //console.log(afterElement);
+    const afterElement = dragSwitchElement(container, e.clientY);
     const card = document.querySelector('.dragging');
-    if (afterElement === null) {
-      // e.target.appendChild(card);
-      container!.appendChild(card!);
-    } else {
-      container?.insertBefore(card!, afterElement);
+    if (afterElement) {
+      if (afterElement.direction === 'up') {
+        container?.insertBefore(card!, afterElement.element);
+      } else if ( afterElement.direction === 'down') {
+        insertAfter(card!, afterElement.element)
+      }
+      for (let index in bookmarks) {
+        if (bookmarks[index].creation_date.toString() === afterElement.element.getAttribute('id')) {
+          indexRef.current! = parseInt(index);
+        }
+      }
+
     }
   }
 
-  function getDragAfterElement (container: any, y: number) {
-    const allCards = [...container.querySelectorAll('.bookmark-list__li:not(.dragging)')];
-    return allCards.reduce((closest, child) => {
-      const box = child.getBoundingClientRect();
-      const offset = y - box.top - box.height/2;
-      //console.log(offset);
-      if (offset < 0 && offset > closest.offset) {
-        return {offset: offset, element: child}
-      } else {
-        return closest
-      }
-    }, {offset: Number.NEGATIVE_INFINITY}).element;
-  }
-
   function onDragStart(id: string) {
-    console.log('drag start');
-    const target = document.getElementById(id);    
-    console.log(target);
+    const target = document.getElementById(id);
     setTimeout(() => {
       target!.classList.add('dragging');
     }, 0);
+    for (let index in bookmarks) {
+      if (bookmarks[index].creation_date.toString() === id) {
+        indexStart.current! = parseInt(index);
+      }
+    }
   }
-  
-  function onDragEnd(e: any, id: string) {
+    
+  function onDragEnd(e: React.DragEvent<HTMLLIElement>, id: string) {
     e.stopPropagation();
     const target = document.getElementById(id);
     target!.classList.remove('dragging');
-    console.log('over')
-    target!.setAttribute('draggable', 'false')
+    target!.removeAttribute('draggable');
+    const childNode = target!.children!.item(0);
+    childNode!.removeAttribute('draggable');
+    let add = bookmarks[indexStart.current!];
+    let active = [...bookmarks];
+    active.splice(indexStart.current!, 1);
+    active.splice(indexRef.current!, 0, add);
+
+    setBookmarks(active)
   }
 
   return (
@@ -78,3 +82,4 @@ export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[
     </div>
   )
 }
+
