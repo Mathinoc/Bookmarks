@@ -23,7 +23,7 @@ export default function HomeView() {
   const [bookmarks, setBookmarks] = useState<bookmark[] | []>(() => {
     const bookmarksJson = localStorage.getItem("bookmarkList");
     const bookmarkSaved = bookmarksJson && JSON.parse(bookmarksJson);
-    return bookmarkSaved;
+    return bookmarkSaved || [];
   });
   const urlInput = useRef<HTMLInputElement>(null);
 
@@ -32,7 +32,8 @@ export default function HomeView() {
   }, [bookmarks]);
 
   async function createBookmark(url: string): Promise<string> {
-    let newBookmark = await getNoembedInfo(url);
+    const urlCheck = url.slice(url.length -1) === '/' ? url.slice(0,-1) : url;
+    let newBookmark = await getNoembedInfo(urlCheck);
     if (newBookmark.error) {
       if (newBookmark.error.indexOf("404") > -1) {
         return "Aucune ressource trouvée, vérifiez l'url.";
@@ -42,7 +43,7 @@ export default function HomeView() {
         return "Url non valide";
       }
       
-    } else if (bookmarks.filter(elem => elem.url === newBookmark.url).length ) {
+    } else if (bookmarks && bookmarks.filter(elem => elem.url === newBookmark.url).length ) {
       return "Un bookmark existe dejà pour cet url"
 
     } else {

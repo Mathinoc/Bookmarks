@@ -4,7 +4,7 @@ import { bookmark } from '../interfaces/BookmarkInterface';
 import DragHandle from './DragHandle';
 import { timeDifference, updateInterval } from '../utils/timeDifference';
 import DeleteButton from './DeleteButton';
-import mockImage from "../images/replacementImage.png";
+import mockImage from "../assets/replacementImage.png";
 
 export default function Bookmark({ bookmark, removeBookmark }: { bookmark: bookmark, removeBookmark: () => void }) {
 const [elapsedTime, setElapsedTime] = useState<{deltaTime:number, formatted: string}>(() => timeDifference(bookmark.creation_date))
