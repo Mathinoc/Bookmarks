@@ -4,7 +4,7 @@ import { bookmark } from '../interfaces/BookmarkInterface';
 import Bookmark from './Bookmark';
 
 export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[], setBookmarks: React.Dispatch<React.SetStateAction<bookmark[] | []>> }) {
-  console.log(bookmarks)
+  
   function removeBookmark(bookmarkDate: number) {
     setBookmarks(prev => (
       prev.filter(elem => elem.creation_date !== bookmarkDate)

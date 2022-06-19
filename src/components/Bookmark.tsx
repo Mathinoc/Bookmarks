@@ -1,15 +1,19 @@
-import React, { memo } from 'react';
+import React, { useState } from 'react';
 import '../styles/Bookmark.css';
 import { bookmark } from '../interfaces/BookmarkInterface';
 import DragHandle from './DragHandle';
-import timeDifference from '../utils/timeDifference';
-import formatDate from '../utils/formatDate';
+import { timeDifference, updateInterval } from '../utils/timeDifference';
 import DeleteButton from './DeleteButton';
 import mockImage from "../images/replacementImage.png";
 
 export default function Bookmark({ bookmark, removeBookmark }: { bookmark: bookmark, removeBookmark: () => void }) {
+const [elapsedTime, setElapsedTime] = useState<{deltaTime:number, formatted: string}>(() => timeDifference(bookmark.creation_date))
 
+setTimeout(function updateElapsedTime () {
+  setElapsedTime(timeDifference(bookmark.creation_date))
 
+  setTimeout(() => updateElapsedTime, updateInterval(elapsedTime.deltaTime) )
+}, updateInterval(elapsedTime.deltaTime) )
 
   return (
     <article className="bookmark-list__article">
@@ -43,7 +47,7 @@ export default function Bookmark({ bookmark, removeBookmark }: { bookmark: bookm
             {bookmark.url}
           </a>
         </p>
-        <p className="bookmark-info__time-difference">{timeDifference(bookmark.creation_date)}</p>
+        <p className="bookmark-info__time-difference">{elapsedTime.formatted}</p>
       </div>
       <DeleteButton onClick={removeBookmark} />
       <div className="article__drag">

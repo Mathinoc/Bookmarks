@@ -1,21 +1,28 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../styles/UrlSearch.css';
 
 interface urlArg {
   urlInput: React.RefObject<HTMLInputElement>,
-  createBookmark: () => Promise<void>,
-  inputError: { trigger: boolean, message: string }
+  createBookmark: () => Promise<string>
 }
 
-export default function UrlSearch({ urlInput, createBookmark, inputError }: urlArg) {
+export default function UrlSearch({ urlInput, createBookmark }: urlArg) {
   const [toggle, setToggle] = useState<boolean>(false);
+  const [creationResponse, setCreationResponse] = useState<{display: boolean, message: string}>({display: false, message: ""}); //useState({trigger: false, message: ""});
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    createBookmark();
+    let response = "";
+    if (!(urlInput.current && urlInput.current.value === "")) {
+      response = await createBookmark();
+    } else {
+      response = "Pas d'url détecté"
+    }
+      setCreationResponse({display: true, message: response});
+      setTimeout(()=>setCreationResponse({display: false, message: response}), 3000)
   }
   function handleClick() {
-    if (urlInput && urlInput.current) {
+    if (urlInput.current) {
       urlInput.current.value = "";
       setToggle(false);
     }
@@ -41,6 +48,7 @@ export default function UrlSearch({ urlInput, createBookmark, inputError }: urlA
             placeholder="Paste url..."
             onChange={updateToggle}
           />
+
           {toggle &&
             <button onClick={handleClick} type="button">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
@@ -48,8 +56,10 @@ export default function UrlSearch({ urlInput, createBookmark, inputError }: urlA
               </svg>
             </button>
           }
-          {inputError.trigger &&
-            <p>{inputError.message}</p>
+          {
+            <p id="error-url-input" className={`${creationResponse.display && "url-search__error-displayed"}`}>
+              {creationResponse.message}
+            </p>
           }
         </div>
 
