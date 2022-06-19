@@ -1,6 +1,22 @@
 .url-search__container {
   padding: 20px 0;
   --height-entries: 35px;
+  position: relative;
+}
+
+.url-search__spinner {
+  width: calc(100% + 8px);
+  height: 100%;
+  position: absolute;
+  top:0;
+  left:-4px;
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.url-search__spinner img {
+  height: 40%;
 }
 
 .url-search__container form {
@@ -20,7 +36,7 @@
 .url-search__save-button {
   border: none;
   background-color: var(--header-color-right);
-  color: aliceblue;
+  color: rgb(255, 255, 255);
   font-size: 15px;
   font-weight: 600;
 }

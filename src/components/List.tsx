@@ -14,7 +14,7 @@ export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[
   return (
     <div className="bookmark-list__container">
       <ul>
-        {bookmarks.map(bookmark => (
+        {bookmarks && bookmarks.map(bookmark => (
           <li key={bookmark.creation_date}>
             <Bookmark bookmark={bookmark} removeBookmark={() => removeBookmark(bookmark.creation_date)}/>
           </li>
