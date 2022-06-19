@@ -7,13 +7,13 @@ import DeleteButton from './DeleteButton';
 import mockImage from "../assets/replacementImage.png";
 
 export default function Bookmark({ bookmark, removeBookmark }: { bookmark: bookmark, removeBookmark: () => void }) {
-const [elapsedTime, setElapsedTime] = useState<{deltaTime:number, formatted: string}>(() => timeDifference(bookmark.creation_date))
+  const [elapsedTime, setElapsedTime] = useState<{ deltaTime: number, formatted: string }>(() => timeDifference(bookmark.creation_date))
 
-setTimeout(function updateElapsedTime () {
-  setElapsedTime(timeDifference(bookmark.creation_date))
+  setTimeout(function updateElapsedTime() {
+    setElapsedTime(timeDifference(bookmark.creation_date))
 
-  setTimeout(() => updateElapsedTime, updateInterval(elapsedTime.deltaTime) )
-}, updateInterval(elapsedTime.deltaTime) )
+    setTimeout(() => updateElapsedTime, updateInterval(elapsedTime.deltaTime))
+  }, updateInterval(elapsedTime.deltaTime))
 
   return (
     <article className="bookmark-list__article">

@@ -11,3 +11,8 @@
 .bookmark-list__container li:hover {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+.dragging{
+  /* box-shadow: rgba(99, 99, 99, 0.4) 0px 4px 8px 0px; */
+  /* border: 2px solid red;
+  z-index:2 */
+}
