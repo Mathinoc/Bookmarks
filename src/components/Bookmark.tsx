@@ -20,16 +20,18 @@ export default function Bookmark({ bookmark, removeBookmark }: { bookmark: bookm
       <div className="article__image-info">
         {bookmark.thumbnail_url ? (
           <>
-            <img src={bookmark.thumbnail_url} alt="" />
-            {(bookmark.duration || bookmark.height) &&
+            <img src={bookmark.thumbnail_url} alt="thumbnail" draggable="false"/>
+
+            {(bookmark.type === "video" && bookmark.duration) ?
               <p>
-                {bookmark.type === "video" ? (
-                  bookmark.duration && bookmark.duration
-                ) : (
-                  bookmark.height && bookmark.width && `${bookmark.height} x ${bookmark.width}`
-                )}
+                {bookmark.duration}
+              </p>
+              : (bookmark.type === "photo" && bookmark.height && bookmark.width) &&
+              <p>
+                {`${bookmark.height} x ${bookmark.width}`}
               </p>
             }
+
           </>
         ) : (
           <img src={mockImage} alt="" />

@@ -10,10 +10,17 @@
   position: absolute;
   top:0;
   left:-4px;
-  backdrop-filter: blur(2px);
+  background-color: rgba(255, 255, 255, .8);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+  .url-search__spinner {
+    background-color: transparent;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
 }
 .url-search__spinner img {
   height: 40%;
@@ -92,3 +99,8 @@
   opacity: 0;
   transition: opacity 0.2s linear;
 }
+
+.url-search__clear-button{
+  display:none;
+}
+

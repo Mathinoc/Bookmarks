@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/UrlSearch.css';
 import spinner from '../assets/spinner.svg';
+import crossIcon from '../assets/cross.svg'
 
 interface urlArg {
   urlInput: React.RefObject<HTMLInputElement>,
@@ -17,7 +18,7 @@ export default function UrlSearch({ urlInput, createBookmark }: urlArg) {
     setIsLoading(true);
     try {
       let response = "";
-      if (!(urlInput.current && urlInput.current.value === "")) {
+      if (!(urlInput && urlInput.current && urlInput.current.value === "")) {
         response = await createBookmark();
       } else {
         response = "Pas d'url détecté"
@@ -30,13 +31,13 @@ export default function UrlSearch({ urlInput, createBookmark }: urlArg) {
   }
 
   function handleDeleteClick() {
-    if (urlInput.current) {
+    if (urlInput && urlInput.current) {
       urlInput.current.value = "";
       setCrossToggle(false);
     }
   }
   function updateCrossToggle() {
-    if (urlInput.current && urlInput.current.value) {
+    if (urlInput && urlInput.current && urlInput.current.value) {
       setCrossToggle(true);
     } else {
       setCrossToggle(false);
@@ -56,19 +57,19 @@ export default function UrlSearch({ urlInput, createBookmark }: urlArg) {
             placeholder="Paste url..."
             onChange={updateCrossToggle}
           />
+          <button
+            onClick={handleDeleteClick}
+            type="button"
+            className={`${!crossToggle && "url-search__clear-button"}`}
+            aria-label="clear-input"
+          >
+            <img src={crossIcon} alt="erase" />
+          </button>
 
-          {crossToggle &&
-            <button onClick={handleDeleteClick} type="button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-              </svg>
-            </button>
-          }
-          {
-            <p id="error-url-input" className={`${creationResponse.display && "url-search__error-displayed"}`}>
-              {creationResponse.message}
-            </p>
-          }
+          <p id="error-url-input" className={`${creationResponse.display && "url-search__error-displayed"}`}>
+            {creationResponse.message}
+          </p>
+
         </div>
 
       </form>

@@ -3,16 +3,23 @@
   list-style-type: none;
   margin: 0;
 }
+
 .bookmark-list__container li {
   margin-bottom: 20px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   border-radius: var(--global-radius);
 }
+
 .bookmark-list__container li:hover {
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(99, 99, 99, 0.3) 0px 0px 8px 0px;
 }
-.dragging{
-  /* box-shadow: rgba(99, 99, 99, 0.4) 0px 4px 8px 0px; */
-  /* border: 2px solid red;
-  z-index:2 */
+
+.bookmark-list__container:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+
+.dragging {
+  opacity: 0.5;
 }
