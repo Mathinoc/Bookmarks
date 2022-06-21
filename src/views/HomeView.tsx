@@ -6,7 +6,6 @@ import List from '../components/List';
 import getNoembedInfo from '../services/noembedService';
 import { bookmark } from '../interfaces/BookmarkInterface';
 import { formatDuration, formatDate } from '../utils/formatAdapters';
-import Modal from '../components/Modal';
 
 export default function HomeView() {
 
@@ -58,7 +57,6 @@ export default function HomeView() {
           urlInput={urlInput}
           createBookmark={() => createBookmark(urlInput.current!.value)}
         />
-        <Modal>HEy I'm a modal</Modal>
         <pre>
           {`
           https://vimeo.com/565486457
