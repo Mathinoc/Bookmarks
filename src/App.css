@@ -1,11 +1,8 @@
 :root{
-  /* --header-color-left: rgb(192 84 116 / 80%); */
-  /* --header-color-right: rgb(248 149 109 / 80%); */
-  --header-color-left: rgb(208, 122, 143);
-  --header-heavy-color-left: rgb(192 84 116 / 94%);
-  --header-color-right: rgb(248, 168, 138);
-  --header-heavy-color-right: rgb(248 149 109 / 95%);
-  --header-height: 50px;
+  --header-color: rgb(33, 55, 96);
+  --klaxoon-pink-hover: rgb(255, 50, 151);
+  --klaxoon-pink:rgb(236, 38, 136);
+  --header-height: 55px;
   --bookmark-height: 100px;
   --max-width: 800px;
   --min-width: 240px;

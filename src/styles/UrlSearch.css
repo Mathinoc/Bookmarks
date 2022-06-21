@@ -1,5 +1,5 @@
 .url-search__container {
-  padding: 20px 0;
+  padding: 40px 0;
   --height-entries: 35px;
   position: relative;
 }
@@ -42,7 +42,7 @@
 
 .url-search__save-button {
   border: none;
-  background-color: var(--header-color-right);
+  background-color: var(--klaxoon-pink);
   color: rgb(255, 255, 255);
   font-size: 15px;
   font-weight: 600;
@@ -50,7 +50,7 @@
 
 .url-search__save-button:hover {
   cursor: pointer;
-  background-color: var(--header-heavy-color-right);
+  background-color: var(--klaxoon-pink-hover);
 }
 
 .url-search__input-elements {
@@ -89,15 +89,18 @@
   margin-right: 10px;
 }
 
-
 .url-search__input-elements .url-search__error-displayed#error-url-input {
+  padding-top:8px;
   text-align: left;
   opacity: 1;
+  font-weight: 600;
 }
 .url-search__input-elements #error-url-input {
+  padding-top:8px;
   text-align: left;
   opacity: 0;
-  transition: opacity 0.2s linear;
+  font-weight: 600;
+  transition: display 0s, opacity 0.2s linear;
 }
 
 .url-search__clear-button{

@@ -57,16 +57,19 @@ export default function UrlSearch({ urlInput, createBookmark }: urlArg) {
             placeholder="Paste url..."
             onChange={updateCrossToggle}
           />
-          <button
-            onClick={handleDeleteClick}
-            type="button"
-            className={`${!crossToggle && "url-search__clear-button"}`}
-            aria-label="clear-input"
-          >
-            <img src={crossIcon} alt="erase" />
-          </button>
+          {crossToggle &&
+            <button
+              onClick={handleDeleteClick}
+              type="button"
+              aria-label="clear-input"
+            >
+              <img src={crossIcon} alt="erase" />
+            </button>}
 
-          <p id="error-url-input" className={`${creationResponse.display && "url-search__error-displayed"}`}>
+          <p
+            id="error-url-input"
+            className={`${creationResponse.display && "url-search__error-displayed"}`}
+          >
             {creationResponse.message}
           </p>
 

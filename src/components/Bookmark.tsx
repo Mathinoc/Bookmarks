@@ -20,7 +20,7 @@ export default function Bookmark({ bookmark, removeBookmark }: { bookmark: bookm
       <div className="article__image-info">
         {bookmark.thumbnail_url ? (
           <>
-            <img src={bookmark.thumbnail_url} alt="thumbnail" draggable="false"/>
+            <img src={bookmark.thumbnail_url} alt="thumbnail" draggable="false" />
 
             {(bookmark.type === "video" && bookmark.duration) ?
               <p>
@@ -52,9 +52,7 @@ export default function Bookmark({ bookmark, removeBookmark }: { bookmark: bookm
         <p className="bookmark-info__time-difference">{elapsedTime.formatted}</p>
       </div>
       <DeleteButton onClick={removeBookmark} />
-      <div className="article__drag">
-        <DragHandle id={bookmark.creation_date} />
-      </div>
+      <DragHandle id={bookmark.creation_date} />
     </article>
   )
 }

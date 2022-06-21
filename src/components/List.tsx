@@ -5,14 +5,26 @@ import Bookmark from './Bookmark';
 import { insertAfter, dragSwitchElement } from '../utils/domOperation';
 
 export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[], setBookmarks: React.Dispatch<React.SetStateAction<bookmark[] | []>> }) {
-  const indexEnd = useRef<number>();
-  const indexStart = useRef<number>();
-  const switchFactor = useRef<{ lastDirection: string, factor: number }>();
+  const indexStart = useRef<number | null>();
+  const indexEnd = useRef<number | null>();
+  const switchFactor = useRef<{ lastDirection: string, factor: number }>({ lastDirection: "", factor: 0 });
 
   function removeBookmark(bookmarkDate: number) {
     setBookmarks(prev => (
       prev.filter(elem => elem.creation_date !== bookmarkDate)
     ))
+  }
+
+  function onDragStart(id: string) {
+    const target = document.getElementById(id);
+    setTimeout(() => {
+      target!.classList.add('dragging');
+    }, 0);
+    for (let index in bookmarks) {
+      if (bookmarks[index].creation_date.toString() === id) {
+        indexStart.current! = parseInt(index);
+      }
+    }
   }
 
   function onDragOver(e: React.DragEvent<HTMLUListElement>) {
@@ -40,23 +52,11 @@ export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[
               switchFactor.current! = { lastDirection: afterElement.direction, factor: -1 }
             }
           } else {
-            switchFactor.current! = { lastDirection: afterElement.direction, factor: 0 }
+            switchFactor.current! = {...switchFactor.current, lastDirection: afterElement.direction}
           }
 
           indexEnd.current! = parseInt(index);
         }
-      }
-    }
-  }
-
-  function onDragStart(id: string) {
-    const target = document.getElementById(id);
-    setTimeout(() => {
-      target!.classList.add('dragging');
-    }, 0);
-    for (let index in bookmarks) {
-      if (bookmarks[index].creation_date.toString() === id) {
-        indexStart.current! = parseInt(index);
       }
     }
   }
@@ -70,12 +70,18 @@ export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[
     childNode!.removeAttribute('draggable');
 
     // update the bookmarks state variable.
-    let add = bookmarks[indexStart.current!];
-    let active = [...bookmarks];
-    active.splice(indexStart.current!, 1);
-    const updatedIndex = indexEnd.current! + switchFactor.current!.factor
-    active.splice(updatedIndex, 0, add);
-    setBookmarks(active)
+    const updatedIndex = indexEnd.current! + switchFactor.current!.factor;
+    if ((indexEnd.current! !== null) && indexStart.current !== updatedIndex) {
+      let add = bookmarks[indexStart.current!];
+      let active = [...bookmarks];
+      active.splice(indexStart.current!, 1);
+      active.splice(updatedIndex, 0, add);
+      setBookmarks(active);
+    };
+
+    indexEnd.current = null;
+    indexStart.current = null;
+    switchFactor.current = { lastDirection: "", factor: 0 };
   }
 
   return (

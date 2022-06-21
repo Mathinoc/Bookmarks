@@ -1,15 +1,11 @@
 import "@testing-library/jest-dom";
-import {
-  render,
-  cleanup,
-  screen,
-} from "@testing-library/react";
+import { render, cleanup, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import DeleteButton from "../components/DeleteButton";
 
 afterEach(cleanup);
 
-describe.only("Delete Button", () => {
+describe("Delete Button", () => {
   it("Should render with image and alt", () => {
     const onClick = jest.fn();
     render(<DeleteButton onClick={onClick}/> );

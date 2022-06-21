@@ -14,12 +14,6 @@
   box-shadow: rgba(99, 99, 99, 0.3) 0px 0px 8px 0px;
 }
 
-.bookmark-list__container:active {
-  cursor: grabbing;
-  cursor: -moz-grabbing;
-  cursor: -webkit-grabbing;
-}
-
 .dragging {
   opacity: 0.5;
 }

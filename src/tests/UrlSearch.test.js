@@ -1,47 +1,68 @@
-import React from "react";
+import React, { useRef } from "react";
 import "@testing-library/jest-dom";
-import {
-  render,
-  waitFor,
-  cleanup,
-  screen,
-  waitForElementToBeRemoved,
-} from "@testing-library/react";
+import { render, act, cleanup, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import UrlSearch from "../components/UrlSearch";
 
 afterEach(cleanup);
 
+jest.mock("react", () => {
+  const originReact = jest.requireActual("react");
+  const customUseRef = jest.fn();
+  return {
+    ...originReact,
+    useRef: customUseRef,
+  };
+});
+
 describe("URL search", () => {
-  it("Should display a Save button and an input", async () =>{
+  it("Should display a Save button and an input", async () => {
     render(<UrlSearch />);
-    const saveButton = screen.getByRole("button", {name: "Save"});
+    const saveButton = screen.getByRole("button", { name: "Save" });
     expect(saveButton).toBeInTheDocument();
     const inputField = screen.getByRole("textbox");
-    const placeHolder = inputField.getAttribute('placeholder');
+    const placeHolder = inputField.getAttribute("placeholder");
     expect(inputField).toBeInTheDocument();
     expect(placeHolder).toEqual("Paste url...");
-  })
+  });
+
   it("Should add a delete button when input not empty", async () => {
-    render(<UrlSearch />);
+    const urlInput = { current: { value: "" } };
+    useRef.mockReturnValueOnce(urlInput);
+    render(<UrlSearch urlInput={urlInput} />);
+
+    expect(screen.queryByRole("button", { name: /clear-input/i })).toBeNull();
     const inputField = screen.getByRole("textbox");
     await userEvent.type(inputField, "http://");
     expect(screen.getByDisplayValue("http://")).toEqual(inputField);
-    expect(screen.getByDisplayValue("http://")).toBeTruthy();
 
-    const crossButton = screen.getByRole("button", {name:/clear-input/i});
+    const crossButton = screen.getByRole("button", { name: /clear-input/i });
     expect(crossButton).toBeTruthy();
     await userEvent.click(crossButton);
-    //expect(screen.getByRole("textbox").value).toEqual("");
-
+    expect(screen.getByRole("textbox").value).toEqual("");
+    expect(screen.queryByRole("button", { name: /clear-input/i })).toBeNull();
   });
-  it("Should call submit function on save", async () => {
-    render(<UrlSearch />);
+
+  it("Should display appropriate message on save", async () => {
+    const createBookmark = async function () {
+      return "Aucune ressource trouvée, vérifiez l'url.";
+    };
+    const urlInput = { current: { value: "" } };
+    useRef.mockReturnValueOnce(urlInput);
+    render(<UrlSearch urlInput={urlInput} createBookmark={createBookmark} />);
+
+    const saveButton = screen.getByRole("button", { name: "Save" });
+    await userEvent.click(saveButton);
+    expect(screen.getByText("Pas d'url détecté")).toBeTruthy();
     const inputField = screen.getByRole("textbox");
     await userEvent.type(inputField, "https://vimeo.com/565486457");
-    const saveButton = screen.getByRole("button", {name: "Save"});
-    //await userEvent.click(saveButton);
-
-  })
-  
+    await userEvent.click(saveButton);
+    expect(screen.getByText("Aucune ressource trouvée, vérifiez l'url.")).toBeTruthy();
+    await act(async () => await new Promise((r) => setTimeout(r, 2000)));
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.getElementsByClassName("url-search__error-displayed")[0]).toBeInTheDocument();
+    await act(async () => await new Promise((r) => setTimeout(r, 1500)));
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.getElementsByClassName("false")[0]).toBeInTheDocument();
+  });
 });

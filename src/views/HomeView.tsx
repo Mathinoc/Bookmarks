@@ -6,7 +6,7 @@ import List from '../components/List';
 import getNoembedInfo from '../services/noembedService';
 import { bookmark } from '../interfaces/BookmarkInterface';
 import { formatDuration, formatDate } from '../utils/formatAdapters';
-
+import Modal from '../components/Modal';
 
 export default function HomeView() {
 
@@ -22,7 +22,7 @@ export default function HomeView() {
   }, [bookmarks]);
 
   async function createBookmark(url: string): Promise<string> {
-    const urlCheck = url.slice(url.length -1) === '/' ? url.slice(0,-1) : url;
+    const urlCheck = url.slice(url.length - 1) === '/' ? url.slice(0, -1) : url;
     let newBookmark = await getNoembedInfo(urlCheck);
     if (newBookmark.error) {
       if (newBookmark.error.indexOf("404") > -1) {
@@ -32,8 +32,8 @@ export default function HomeView() {
       } else if (newBookmark.error === "no matching providers found") {
         return "Url non valide";
       }
-      
-    } else if (bookmarks && bookmarks.filter(elem => elem.url === newBookmark.url).length ) {
+
+    } else if (bookmarks && bookmarks.filter(elem => elem.url === newBookmark.url).length) {
       return "Un bookmark existe dejà pour cet url"
 
     } else {
@@ -58,6 +58,7 @@ export default function HomeView() {
           urlInput={urlInput}
           createBookmark={() => createBookmark(urlInput.current!.value)}
         />
+        <Modal>HEy I'm a modal</Modal>
         <pre>
           {`
           https://vimeo.com/565486457
