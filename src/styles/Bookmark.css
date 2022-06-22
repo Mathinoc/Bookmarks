@@ -1,4 +1,4 @@
-.bookmark-list__article {
+.Bookmark-container {
   display: flex;
   align-items: center;
   height: var(--bookmark-height);
@@ -12,21 +12,24 @@ h2 {
   margin: 0;
   color: rgb(59, 59, 59);
 }
+h2:hover{
+  cursor: pointer;
+}
 
-.article__image-info {
+.Bookmark-container__image-info {
   height: 100%;
   position: relative;
 }
 
-.bookmark-list__article:hover > .article__image-info img {
+.Bookmark-container:hover > .Bookmark-container__image-info img {
   opacity: 1;
 }
-.bookmark-list__article:hover > .article__drag-area img[alt=""]{
+.Bookmark-container:hover > .Bookmark__drag-area img[alt=""]{
   opacity:1;
   color: lightgrey
 }
 
-.article__image-info img {
+.Bookmark-container__image-info img {
   object-fit: cover;
   height: 100%;
   width: 150px;
@@ -34,18 +37,21 @@ h2 {
   border-bottom-left-radius: var(--global-radius);
   border-top-left-radius: var(--global-radius);
 }
+.Bookmark-container__image-info img:hover{
+  cursor: pointer;
+}
 
 @media screen and (max-width: 420px) {
-  .article__image-info img {
+  .Bookmark-container__image-info img {
     width: 90px;
   }
 }
 
-.article__image-info p {
+.Bookmark-container__image-info p {
   position: absolute;
   padding: 2px 5px;
   font-size: 10px;
-  background-color: var(--header-heavy-color-left);
+  background-color: var(--soft-pink);
   right: 2px;
   bottom: 2px;
   border-radius: 2px;
@@ -53,7 +59,7 @@ h2 {
 }
 
 
-.article__bookmark-info {
+.Bookmark-container__bookmark-info {
   flex-grow: 1;
   text-align: left;
   height: 100%;
@@ -63,34 +69,36 @@ h2 {
   box-sizing: border-box;
 }
 
-.article__bookmark-info h2 {
+.Bookmark-container__bookmark-info h2 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 20px;
+  font-weight: 600;
+  margin-top: 4px;
 }
 
-.article__bookmark-info p {
+.Bookmark-container__bookmark-info p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 14px;
 }
 
-.article__bookmark-info .bookmark-info__time-difference {
+.Bookmark-container__bookmark-info .bookmark-info__time-difference {
   position: absolute;
   bottom: 5px;
   font-size: 12px;
 }
 
-.article__bookmark-info .bookmark-info__publication {
+.Bookmark-container__bookmark-info .bookmark-info__publication {
   font-style: italic;
   font-size: 12px;
   margin-bottom: 10px;
 }
 
 
-.article__drag-area {
+.Bookmark__drag-area {
   padding: 0 10px;
   height: 100%;
   display: flex;
@@ -101,25 +109,25 @@ h2 {
   background-color: rgb(241 241 232);
 }
 
-.article__drag-handle img[alt="drag"]{
+.Bookmark__drag-handle img[alt="drag"]{
   height:20px;
 }
-.article__drag-area img[alt=""]{
+.Bookmark__drag-area img[alt=""]{
   opacity:0;
 }
 
-.article__drag-handle img:hover {
+.Bookmark__drag-handle img:hover {
   cursor: move;
   cursor: grab;
   cursor: -moz-grab;
   cursor: -webkit-grab;
 }
 
-.article__drag-handle img:active {
+.Bookmark__drag-handle img:active {
   cursor: grabbing;
 }
 
-.article__button-delete {
+.Bookmark__button-delete {
   border: none;
   background-color: transparent;
   align-self: flex-end;

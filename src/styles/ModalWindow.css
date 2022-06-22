@@ -1,0 +1,53 @@
+.Modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right:0;
+  bottom: 0;
+  background-color: rgb(0,0,0,0.7);
+  z-index: 3;
+}
+.Modal-container{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: rgb(255, 255, 255);
+  border-radius: var(--global-radius);
+  padding: 50px;
+  z-index: 3;
+  width:70vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.Modal-container button{
+  background-color: transparent;
+  border: none;
+  align-self: flex-end;
+}
+.Modal-container button:hover{
+  cursor: pointer;
+}
+.Modal-container__iframe-container{
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height:100%;
+}
+iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+.Modal-image  {
+height:200px;
+}
+.Modal-container__error-message{
+  text-align: center;
+}
