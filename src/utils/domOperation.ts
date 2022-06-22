@@ -3,7 +3,7 @@ export function insertAfter(newNode: any, existingNode: any) {
 }
 
 export function dragSwitchElement(container: any, y: number) {
-  const allBookmarks = [...container.querySelectorAll('.bookmark-list__li:not(.dragging)')];
+  const allBookmarks = [...container.querySelectorAll('.BookmarkList__li:not(.dragging)')];
   for (let element of allBookmarks) {
     const box = element.getBoundingClientRect();
     const offsetTop = y - box.top;

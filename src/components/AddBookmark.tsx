@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/UrlSearch.css';
+import '../styles/AddBookmark.css';
 import spinner from '../assets/spinner.svg';
 import crossIcon from '../assets/cross.svg'
 
@@ -8,7 +8,7 @@ interface urlArg {
   createBookmark: () => Promise<string>
 }
 
-export default function UrlSearch({ urlInput, createBookmark }: urlArg) {
+export default function AddBookmark({ urlInput, createBookmark }: urlArg) {
   const [crossToggle, setCrossToggle] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [creationResponse, setCreationResponse] = useState<{ display: boolean, message: string }>({ display: false, message: "" }); //useState({trigger: false, message: ""});
@@ -45,16 +45,16 @@ export default function UrlSearch({ urlInput, createBookmark }: urlArg) {
   }
 
   return (
-    <div className="url-search__container">
+    <div className="AddBookmark__container">
       <form onSubmit={handleSubmit}>
-        <button type="submit" className='url-search__element url-search__save-button'>
-          Save
+        <button type="submit" className='AddBookmark__form-element AddBookmark__save-button'>
+          Ajouter
         </button>
-        <div className="url-search__element url-search__input-elements">
+        <div className="AddBookmark__form-element AddBookmark__input-elements">
           <input
             type="url"
             ref={urlInput}
-            placeholder="Paste url..."
+            placeholder="Coller un url ici..."
             onChange={updateCrossToggle}
           />
           {crossToggle &&
@@ -67,8 +67,8 @@ export default function UrlSearch({ urlInput, createBookmark }: urlArg) {
             </button>}
 
           <p
-            id="error-url-input"
-            className={`${creationResponse.display && "url-search__error-displayed"}`}
+            id="error-AddBookmark-input"
+            className={`${creationResponse.display && "AddBookmark__error-displayed"}`}
           >
             {creationResponse.message}
           </p>
@@ -77,7 +77,7 @@ export default function UrlSearch({ urlInput, createBookmark }: urlArg) {
 
       </form>
       {isLoading &&
-        <div className="url-search__spinner">
+        <div className="AddBookmark__spinner">
           <img src={spinner} alt="spinner" />
         </div>
       }

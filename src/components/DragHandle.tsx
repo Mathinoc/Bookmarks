@@ -1,4 +1,3 @@
-import React from 'react';
 import dragIcon from '../assets/dragIcon.svg';
 import arrowDown from '../assets/arrowdown.svg';
 import arrowUp from '../assets/arrowup.svg';
@@ -10,10 +9,10 @@ export default function DragHandle({ id }: { id: number }) {
   }
 
   return (
-    <div className="article__drag-area">
+    <div className="Bookmark__drag-area">
       <img src={arrowUp} alt="" />
       <div
-        className='article__drag-handle'
+        className="Bookmark__drag-handle"
         onMouseDown={onMouseDown}
       >
         <img src={dragIcon} alt="drag" draggable="false" />

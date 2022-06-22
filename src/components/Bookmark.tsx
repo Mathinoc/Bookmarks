@@ -5,7 +5,7 @@ import DragHandle from './DragHandle';
 import { timeDifference, updateInterval } from '../utils/timeDifference';
 import DeleteButton from './DeleteButton';
 import mockImage from "../assets/replacementImage.png";
-import Modal from './Modal';
+import ModalWindow from './ModalWindow';
 
 export default function Bookmark({ bookmark, removeBookmark }: { bookmark: bookmark, removeBookmark: () => void }) {
   const [elapsedTime, setElapsedTime] = useState<{ deltaTime: number, formatted: string }>(() => timeDifference(bookmark.creation_date))
@@ -24,16 +24,18 @@ export default function Bookmark({ bookmark, removeBookmark }: { bookmark: bookm
   return (
     <>
       {isModalOpen &&
-        <Modal onClose={() => setIsModalOpen(false)} bookmark={bookmark}/>
+        <ModalWindow onClose={() => setIsModalOpen(false)} bookmark={bookmark} />
       }
-      <article
-        className="bookmark-list__article"
-        onClick={openModal}
-      >
-        <div className="article__image-info">
+      <div className="Bookmark-container">
+        <div className="Bookmark-container__image-info">
           {bookmark.thumbnail_url ? (
             <>
-              <img src={bookmark.thumbnail_url} alt="thumbnail" draggable="false" />
+              <img
+                src={bookmark.thumbnail_url}
+                alt="thumbnail"
+                draggable="false"
+                onClick={openModal}
+              />
 
               {(bookmark.type === "video" && bookmark.duration) ?
                 <p>
@@ -50,8 +52,8 @@ export default function Bookmark({ bookmark, removeBookmark }: { bookmark: bookm
             <img src={mockImage} alt="" />
           )}
         </div>
-        <div className="article__bookmark-info">
-          <h2>{bookmark.title}</h2>
+        <div className="Bookmark-container__bookmark-info">
+          <h2 onClick={openModal}>{bookmark.title}</h2>
           {(bookmark.upload_date || bookmark.author_name) && (
             <p className="bookmark-info__publication">
               Publié{bookmark.upload_date && ` le ${bookmark.upload_date}`} {bookmark.author_name && `par ${bookmark.author_name}`}
@@ -66,7 +68,7 @@ export default function Bookmark({ bookmark, removeBookmark }: { bookmark: bookm
         </div>
         <DeleteButton onClick={removeBookmark} />
         <DragHandle id={bookmark.creation_date} />
-      </article>
+      </div>
     </>
   )
 }

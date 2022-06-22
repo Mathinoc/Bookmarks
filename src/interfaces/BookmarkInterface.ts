@@ -11,5 +11,6 @@ export interface bookmark {
 
   height?: string,
   width?: string,
+  media_url?:string,
   creation_date: number,
 }

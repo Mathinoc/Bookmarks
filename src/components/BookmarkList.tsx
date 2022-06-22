@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
-import '../styles/List.css';
+import '../styles/BookmarkList.css';
 import { bookmark } from '../interfaces/BookmarkInterface';
 import Bookmark from './Bookmark';
 import { insertAfter, dragSwitchElement } from '../utils/domOperation';
 
-export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[], setBookmarks: React.Dispatch<React.SetStateAction<bookmark[] | []>> }) {
+export default function BookmarkList({ bookmarks, setBookmarks }: { bookmarks: bookmark[], setBookmarks: React.Dispatch<React.SetStateAction<bookmark[] | []>> }) {
   const indexStart = useRef<number | null>();
   const indexEnd = useRef<number | null>();
   const switchFactor = useRef<{ lastDirection: string, factor: number }>({ lastDirection: "", factor: 0 });
@@ -29,7 +29,7 @@ export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[
 
   function onDragOver(e: React.DragEvent<HTMLUListElement>) {
     e.preventDefault();
-    const container = document.querySelector(".bookmark-list__ul")
+    const container = document.querySelector(".BookmarkList__ul");
     const afterElement = dragSwitchElement(container, e.clientY);
     const card = document.querySelector('.dragging');
     if (afterElement) {
@@ -38,7 +38,7 @@ export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[
       if (afterElement.direction === 'up') {
         container?.insertBefore(card!, afterElement.element);
       } else if (afterElement.direction === 'down') {
-        insertAfter(card!, afterElement.element)
+        insertAfter(card!, afterElement.element);
       }
 
       // Updates react references in order to update the bookmarks state variable on drag end.
@@ -85,15 +85,15 @@ export default function List({ bookmarks, setBookmarks }: { bookmarks: bookmark[
   }
 
   return (
-    <div className="bookmark-list__container" >
+    <div className="BookmarkList__container" >
       <ul
-        className="bookmark-list__ul"
+        className="BookmarkList__ul"
         onDragOver={onDragOver}
       >
         {bookmarks && bookmarks.map(bookmark => (
           <li
             id={bookmark.creation_date.toString()}
-            className="bookmark-list__li"
+            className="BookmarkList__li"
             key={bookmark.creation_date}
             onDragStart={() => onDragStart(bookmark.creation_date.toString())}
             onDragEnd={(e) => onDragEnd(e, bookmark.creation_date.toString())}

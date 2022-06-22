@@ -1,6 +1,6 @@
-# Bookmarks
+# Bookmark
 
-Bookmarks allows you to add photos (from http://flickr.com) and videos (from http://vimeo.com) as favorites in your browser. After adding a bookmark, you can see some basic information like the title, the creation date, the author, etc. The bookmarks can be rearranged via dragging and dropping or deleted.
+Bookmark allows you to add photos (from http://flickr.com) and videos (from http://vimeo.com) as favorites. After adding a bookmark, you can see some basic information like the title, the creation date, the author, etc. The bookmarks can be rearranged via dragging and dropping or deleted. When clicking on the title or the thumbnail of a bookmark, a pop-up window will appear to play the video or display the image.
 
 
 ## Getting started

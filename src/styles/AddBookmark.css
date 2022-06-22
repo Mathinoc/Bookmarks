@@ -1,10 +1,10 @@
-.url-search__container {
+.AddBookmark__container {
   padding: 40px 0;
   --height-entries: 35px;
   position: relative;
 }
 
-.url-search__spinner {
+.AddBookmark__spinner {
   width: calc(100% + 8px);
   height: 100%;
   position: absolute;
@@ -16,23 +16,23 @@
   align-items: center;
 }
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-  .url-search__spinner {
+  .AddBookmark__spinner {
     background-color: transparent;
     -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
   }
 }
-.url-search__spinner img {
+.AddBookmark__spinner img {
   height: 40%;
 }
 
-.url-search__container form {
+.AddBookmark__container form {
   display: flex;
   gap: 15px;
   justify-content: center;
 }
 
-.url-search__element {
+.AddBookmark__form-element {
   height: var(--height-entries);
   box-sizing: border-box;
   padding: 0 15px;
@@ -40,7 +40,7 @@
 
 }
 
-.url-search__save-button {
+.AddBookmark__save-button {
   border: none;
   background-color: var(--klaxoon-pink);
   color: rgb(255, 255, 255);
@@ -48,19 +48,19 @@
   font-weight: 600;
 }
 
-.url-search__save-button:hover {
+.AddBookmark__save-button:hover {
   cursor: pointer;
   background-color: var(--klaxoon-pink-hover);
 }
 
-.url-search__input-elements {
+.AddBookmark__input-elements {
   flex-grow: 1;
   position: relative;
   border: 1px solid lightblue;
   padding-right: var(--height-entries);
 }
 
-.url-search__input-elements input {
+.AddBookmark__input-elements input {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -68,15 +68,15 @@
   border: none;
 }
 
-.url-search__input-elements input:focus-visible {
+.AddBookmark__input-elements input:focus-visible {
   outline: none;
 }
 
-.url-search__input-elements input:placeholder-shown {
+.AddBookmark__input-elements input:placeholder-shown {
   font-style: italic;
 }
 
-.url-search__input-elements button {
+.AddBookmark__input-elements button {
   --height-cross-button: 16px;
   cursor: pointer;
   position: absolute;
@@ -89,13 +89,13 @@
   margin-right: 10px;
 }
 
-.url-search__input-elements .url-search__error-displayed#error-url-input {
+.AddBookmark__input-elements .AddBookmark__error-displayed#error-AddBookmark-input {
   padding-top:8px;
   text-align: left;
   opacity: 1;
   font-weight: 600;
 }
-.url-search__input-elements #error-url-input {
+.AddBookmark__input-elements #error-AddBookmark-input {
   padding-top:8px;
   text-align: left;
   opacity: 0;
@@ -103,7 +103,7 @@
   transition: display 0s, opacity 0.2s linear;
 }
 
-.url-search__clear-button{
+.AddBookmark__clear-button{
   display:none;
 }
 

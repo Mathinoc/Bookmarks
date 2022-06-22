@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import "@testing-library/jest-dom";
 import { render, act, cleanup, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import UrlSearch from "../components/UrlSearch";
+import UrlSearch from "../components/AddBookmark";
 
 afterEach(cleanup);
 
@@ -16,14 +16,14 @@ jest.mock("react", () => {
 });
 
 describe("URL search", () => {
-  it("Should display a Save button and an input", async () => {
+  it("Should display an 'Ajouter' button and an input", async () => {
     render(<UrlSearch />);
-    const saveButton = screen.getByRole("button", { name: "Save" });
+    const saveButton = screen.getByRole("button", { name: "Ajouter" });
     expect(saveButton).toBeInTheDocument();
     const inputField = screen.getByRole("textbox");
     const placeHolder = inputField.getAttribute("placeholder");
     expect(inputField).toBeInTheDocument();
-    expect(placeHolder).toEqual("Paste url...");
+    expect(placeHolder).toEqual("Coller un url ici...");
   });
 
   it("Should add a delete button when input not empty", async () => {
@@ -51,7 +51,7 @@ describe("URL search", () => {
     useRef.mockReturnValueOnce(urlInput);
     render(<UrlSearch urlInput={urlInput} createBookmark={createBookmark} />);
 
-    const saveButton = screen.getByRole("button", { name: "Save" });
+    const saveButton = screen.getByRole("button", { name: "Ajouter" });
     await userEvent.click(saveButton);
     expect(screen.getByText("Pas d'url détecté")).toBeTruthy();
     const inputField = screen.getByRole("textbox");
@@ -60,7 +60,7 @@ describe("URL search", () => {
     expect(screen.getByText("Aucune ressource trouvée, vérifiez l'url.")).toBeTruthy();
     await act(async () => await new Promise((r) => setTimeout(r, 2000)));
     // eslint-disable-next-line testing-library/no-node-access
-    expect(document.getElementsByClassName("url-search__error-displayed")[0]).toBeInTheDocument();
+    expect(document.getElementsByClassName("AddBookmark__error-displayed")[0]).toBeInTheDocument();
     await act(async () => await new Promise((r) => setTimeout(r, 1500)));
     // eslint-disable-next-line testing-library/no-node-access
     expect(document.getElementsByClassName("false")[0]).toBeInTheDocument();
