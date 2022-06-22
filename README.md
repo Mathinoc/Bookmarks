@@ -7,9 +7,9 @@ Bookmark allows you to add photos (from http://flickr.com) and videos (from http
 
 1. Fork this repo and clone a copy on your local machine.
 
-2. Install the dependencies: run `npm i` from the bookmarks folder
+2. Install the dependencies: run `npm i` from the bookmarks folder.
 
-3. Start the app: run `npm start` to run the app in a development mode.
+3. Start the app: run `npm start` from the bookmarks folder to run the app in a development mode.
 
 
 ## Running tests
