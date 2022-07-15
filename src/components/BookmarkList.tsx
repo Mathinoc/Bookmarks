@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
-import '../styles/BookmarkList.css';
 import { bookmark } from '../interfaces/BookmarkInterface';
 import Bookmark from './Bookmark';
 import { insertAfter, dragSwitchElement } from '../utils/domOperation';
+import '../styles/BookmarkList.css';
 
 export default function BookmarkList({ bookmarks, setBookmarks }: { bookmarks: bookmark[], setBookmarks: React.Dispatch<React.SetStateAction<bookmark[] | []>> }) {
   const indexStart = useRef<number | null>();
@@ -72,6 +72,7 @@ export default function BookmarkList({ bookmarks, setBookmarks }: { bookmarks: b
     // update the bookmarks state variable.
     const updatedIndex = indexEnd.current! + switchFactor.current!.factor;
     if ((indexEnd.current! !== null) && indexStart.current !== updatedIndex) {
+      // if drop in the list && if position different than on dropStart
       let add = bookmarks[indexStart.current!];
       let active = [...bookmarks];
       active.splice(indexStart.current!, 1);
