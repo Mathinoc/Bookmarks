@@ -1,10 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { bookmark } from '../interfaces/BookmarkInterface';
 import Bookmark from './Bookmark';
+import SearchBookmark from './SearchBookmark';
 import { insertAfter, dragSwitchElement } from '../utils/domOperation';
 import '../styles/BookmarkList.css';
 
 export default function BookmarkList({ bookmarks, setBookmarks }: { bookmarks: bookmark[], setBookmarks: React.Dispatch<React.SetStateAction<bookmark[] | []>> }) {
+  const [searchString, setSearchString] = useState<string>();
   const indexStart = useRef<number | null>();
   const indexEnd = useRef<number | null>();
   const switchFactor = useRef<{ lastDirection: string, factor: number }>({ lastDirection: "", factor: 0 });
@@ -52,7 +54,7 @@ export default function BookmarkList({ bookmarks, setBookmarks }: { bookmarks: b
               switchFactor.current! = { lastDirection: afterElement.direction, factor: -1 }
             }
           } else {
-            switchFactor.current! = {...switchFactor.current, lastDirection: afterElement.direction}
+            switchFactor.current! = { ...switchFactor.current, lastDirection: afterElement.direction }
           }
 
           indexEnd.current! = parseInt(index);
@@ -87,21 +89,29 @@ export default function BookmarkList({ bookmarks, setBookmarks }: { bookmarks: b
 
   return (
     <div className="BookmarkList__container" >
+      <SearchBookmark searchString={searchString} setSearchString={setSearchString} />
       <ul
         className="BookmarkList__ul"
         onDragOver={onDragOver}
       >
-        {bookmarks && bookmarks.map(bookmark => (
-          <li
-            id={bookmark.creation_date.toString()}
-            className="BookmarkList__li"
-            key={bookmark.creation_date}
-            onDragStart={() => onDragStart(bookmark.creation_date.toString())}
-            onDragEnd={(e) => onDragEnd(e, bookmark.creation_date.toString())}
-          >
-            <Bookmark bookmark={bookmark} removeBookmark={() => removeBookmark(bookmark.creation_date)} />
-          </li>
-        ))}
+        {bookmarks && bookmarks
+          .filter(el => {
+            if (searchString) {
+              return el.title.toLocaleLowerCase().includes(searchString?.toLocaleLowerCase());
+            }
+            return el
+          })
+          .map(bookmark => (
+            <li
+              id={bookmark.creation_date.toString()}
+              className="BookmarkList__li"
+              key={bookmark.creation_date}
+              onDragStart={() => onDragStart(bookmark.creation_date.toString())}
+              onDragEnd={(e) => onDragEnd(e, bookmark.creation_date.toString())}
+            >
+              <Bookmark bookmark={bookmark} removeBookmark={() => removeBookmark(bookmark.creation_date)} />
+            </li>
+          ))}
       </ul>
     </div>
   )
