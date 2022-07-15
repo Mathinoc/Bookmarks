@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { bookmark } from '../interfaces/BookmarkInterface';
 import Bookmark from './Bookmark';
 import SearchBookmark from './SearchBookmark';
@@ -10,6 +10,18 @@ export default function BookmarkList({ bookmarks, setBookmarks }: { bookmarks: b
   const indexStart = useRef<number | null>();
   const indexEnd = useRef<number | null>();
   const switchFactor = useRef<{ lastDirection: string, factor: number }>({ lastDirection: "", factor: 0 });
+  const [filteredBookmarks, setFilteredBookmarks] = useState<bookmark[]>();
+
+  useEffect(() => {
+    const filteredList = bookmarks
+      .filter(el => {
+        if (searchString) {
+          return el.title.toLocaleLowerCase().includes(searchString?.toLocaleLowerCase());
+        }
+        return el
+      })
+    setFilteredBookmarks(filteredList);
+  }, [searchString])
 
   function removeBookmark(bookmarkDate: number) {
     setBookmarks(prev => (
@@ -94,14 +106,11 @@ export default function BookmarkList({ bookmarks, setBookmarks }: { bookmarks: b
         className="BookmarkList__ul"
         onDragOver={onDragOver}
       >
-        {bookmarks && bookmarks
-          .filter(el => {
-            if (searchString) {
-              return el.title.toLocaleLowerCase().includes(searchString?.toLocaleLowerCase());
-            }
-            return el
-          })
-          .map(bookmark => (
+        {bookmarks && bookmarks.length === 0 &&
+          <p className="BookmarkList__error">La liste de bookmarks est vide</p>
+        }
+        {filteredBookmarks && filteredBookmarks.length > 0 ?
+          filteredBookmarks.map(bookmark => (
             <li
               id={bookmark.creation_date.toString()}
               className="BookmarkList__li"
@@ -111,7 +120,10 @@ export default function BookmarkList({ bookmarks, setBookmarks }: { bookmarks: b
             >
               <Bookmark bookmark={bookmark} removeBookmark={() => removeBookmark(bookmark.creation_date)} />
             </li>
-          ))}
+          ))
+          :
+          <p className="BookmarkList__error">Aucun bookmark ne correspond à votre recherche</p>
+        }
       </ul>
     </div>
   )

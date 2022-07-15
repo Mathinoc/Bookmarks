@@ -18,3 +18,7 @@
 .dragging {
   opacity: 0.5;
 }
+
+.BookmarkList__filter-error {
+  text-align: center;
+}
