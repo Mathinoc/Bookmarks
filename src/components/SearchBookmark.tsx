@@ -5,7 +5,7 @@ export default function SearchBookmark({ searchString, setSearchString }: { sear
   return (
     <div className="SearchBookmark" >
       <button>
-        <img src={search}/>
+        <img src={search} alt="magnifier button to trigger filter" />
       </button>
       <input
         type="search"

@@ -12,9 +12,6 @@
   border: none;
   background: none;
 }
-.SearchBookmark button:hover{
-  cursor: pointer;
-}
 .SearchBookmark input{
   border: none;
   flex-shrink: 1;
